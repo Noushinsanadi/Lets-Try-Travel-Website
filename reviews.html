@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Travel Reviews</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+ 
+ <img src="main.jpeg" alt=""> 
+  <div id="review-form">
+    <h2>Leave a Review</h2>
+    <form>
+      <div class="form-group">
+        <label for="destination">Destination:</label>
+        <input type="text" id="destination" name="destination" required>
+      </div>
+      <div class="form-group">
+        <label for="rating">Rating:</label>
+        <input type="number" id="rating" name="rating" min="1" max="5" required>
+      </div>
+      <div class="form-group">
+        <label for="comment">Comment:</label>
+        <textarea id="comment" name="comment" required></textarea>
+      </div>
+      <button type="submit">Submit Review</button>
+    </form>
+  </div>
+
+  <div id="review-list">
+    <h2>Reviews</h2>
+    <ul id="reviews">
+      <!-- Reviews will be dynamically added here -->
+    </ul>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+  const form = document.querySelector('form');
+  const reviewsList = document.getElementById('reviews');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    const destinationInput = document.getElementById('destination');
+    const ratingInput = document.getElementById('rating');
+    const commentInput = document.getElementById('comment');
+
+    const destination = destinationInput.value;
+    const rating = ratingInput.value;
+    const comment = commentInput.value;
+
+    if (destination.trim() === '' || rating.trim() === '' || comment.trim() === '') {
+      alert('Please fill in all fields');
+      return;
+    }
+
+    const reviewItem = document.createElement('li');
+    reviewItem.classList.add('review-item');
+
+    const reviewDestination = document.createElement('span');
+    reviewDestination.classList.add('destination');
+    reviewDestination.textContent = destination;
+
+    const reviewRating = document.createElement('span');
+    reviewRating.classList.add('rating');
+    reviewRating.textContent = 'Rating: ' + rating;
+
+    const reviewComment = document.createElement('p');
+    reviewComment.classList.add('comment');
+    reviewComment.textContent = comment;
+
+    reviewItem.appendChild(reviewDestination);
+    reviewItem.appendChild(reviewRating);
+    reviewItem.appendChild(reviewComment);
+
+    reviewsList.appendChild(reviewItem);
+
+    // Clear form fields
+    destinationInput.value = '';
+    ratingInput.value = '';
+    commentInput.value = '';
+  });
+});
+
+  </script>
+</body>
+</html>
